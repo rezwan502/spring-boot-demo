@@ -20,12 +20,12 @@ public class SpringcoreApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
 			createStudent(studentDAO);
-			//readStudent(studentDAO);
+			readStudent(studentDAO);
 			queryForStudents(studentDAO);
-			//queryForStudentsByLastName(studentDAO);
-			//updateStudent(studentDAO);
-			//deleteStudent(studentDAO);
-			//deleteAllStudent(studentDAO);
+			queryForStudentsByLastName(studentDAO);
+			updateStudent(studentDAO);
+			deleteStudent(studentDAO);
+			deleteAllStudent(studentDAO);
 		};
 	}
 
