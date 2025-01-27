@@ -2,6 +2,8 @@ package com.example.springcore;
 
 import com.example.springcore.dao.StudentDAO;
 import com.example.springcore.entity.Student;
+import com.example.springcore.service.StudentService;
+import com.example.springcore.service.StudentServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,20 +19,20 @@ public class SpringcoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
+	public CommandLineRunner commandLineRunner(StudentService studentService) {
 		return runner -> {
-			createStudent(studentDAO);
-			readStudent(studentDAO);
+			createStudent(studentService);
+			/*readStudent(studentDAO);
 			queryForStudents(studentDAO);
 			queryForStudentsByLastName(studentDAO);
 			updateStudent(studentDAO);
 			deleteStudent(studentDAO);
-			deleteAllStudent(studentDAO);
+			deleteAllStudent(studentDAO); */
 		};
 	}
 
-	private void deleteAllStudent(StudentDAO studentDAO) {
-		int count = studentDAO.deleteAll();
+	private void deleteAllStudent(StudentService studentService) {
+		int count = studentService.deleteAll();
 		System.out.println("deleteAllStudent = " + count);
 	}
 
@@ -68,13 +70,13 @@ public class SpringcoreApplication {
 		System.out.println(student);
 	}
 
-	private void createStudent(StudentDAO studentDAO) {
+	private void createStudent(StudentService studentService) {
 		Student student = new Student("rezwan", "sec", "rezwan.sec@gmail.com");
 		Student student1 = new Student("sanjida", "haque", "sanjida.haque@gmail.com");
 		Student student2 = new Student("rukaiya", "mariyam", "rukaiya.mariyam@gmail.com");
-		studentDAO.save(student);
-		studentDAO.save(student1);
-		studentDAO.save(student2);
+		studentService.save(student);
+		studentService.save(student1);
+		studentService.save(student2);
 		System.out.println("student id = " + student.getId());
 	}
 }

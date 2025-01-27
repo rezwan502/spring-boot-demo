@@ -3,7 +3,6 @@ package com.example.springcore.dao;
 import com.example.springcore.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +18,8 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    @Transactional
-    public void save(Student theStudent) {
-        entityManager.persist(theStudent);
+    public Student save(Student theStudent) {
+        return entityManager.merge(theStudent);
     }
 
     @Override
@@ -47,20 +45,17 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    @Transactional
     public void update(Student student) {
         entityManager.merge(student);
     }
 
     @Override
-    @Transactional
     public void delete(Integer id) {
         Student student = entityManager.find(Student.class, id);
         entityManager.remove(student);
     }
 
     @Override
-    @Transactional
     public int deleteAll() {
         return entityManager.createQuery("DELETE FROM Student ").executeUpdate();
     }
