@@ -4,6 +4,7 @@ import com.example.springcore.dao.StudentDAO;
 import com.example.springcore.dao.StudentDAOImpl;
 import com.example.springcore.entity.Student;
 import com.example.springcore.service.StudentService;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class StudentRestController {
 
     @PutMapping("/students")
     public Student updateStudent(@RequestBody Student student) {
-        return studentService.save(student);
+        return studentService.update(student);
     }
 
     @DeleteMapping("/students/{studentId}")

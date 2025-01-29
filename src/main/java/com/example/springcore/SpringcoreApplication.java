@@ -32,8 +32,8 @@ public class SpringcoreApplication {
 	}
 
 	private void deleteAllStudent(StudentService studentService) {
-		int count = studentService.deleteAll();
-		System.out.println("deleteAllStudent = " + count);
+		studentService.deleteAll();
+		System.out.println("deleteAllStudent = ");
 	}
 
 	private void deleteStudent(StudentDAO studentDAO) {

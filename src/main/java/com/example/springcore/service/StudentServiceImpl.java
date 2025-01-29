@@ -1,56 +1,62 @@
 package com.example.springcore.service;
 
 import com.example.springcore.dao.StudentDAO;
+import com.example.springcore.dao.StudentJpaRepository;
 import com.example.springcore.entity.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{
-    StudentDAO studentDAO;
-
-    public StudentServiceImpl(StudentDAO studentDAO)  {
-        this.studentDAO = studentDAO;
+    StudentJpaRepository studentJpaRepository;
+    
+    @Autowired
+    public StudentServiceImpl(StudentJpaRepository studentJpaRepository)  {
+        this.studentJpaRepository = studentJpaRepository;
     }
 
     @Override
-    @Transactional
     public Student save(Student theStudent) {
-        return studentDAO.save(theStudent);
+        return studentJpaRepository.save(theStudent);
     }
 
     @Override
     public Student findById(int id) {
-        return studentDAO.findById(id);
+        Optional<Student> result = studentJpaRepository.findById(id);
+        Student student = null;
+        if (result.isPresent()) {
+            student = result.get();
+        }
+        return student;
     }
 
     @Override
     public List<Student> findAll() {
-        return studentDAO.findAll();
+        return studentJpaRepository.findAll();
     }
 
     @Override
     public List<Student> findByLastName(String lastName) {
-        return studentDAO.findByLastName(lastName);
+        return studentJpaRepository.findByLastName(lastName);
     }
 
     @Override
-    @Transactional
-    public void update(Student student) {
-        studentDAO.update(student);
+    public Student update(Student student) {
+        return studentJpaRepository.save(student);
     }
 
     @Override
-    @Transactional
     public void delete(Integer id) {
-        studentDAO.delete(id);
+        Student student = findById(id);
+        studentJpaRepository.delete(student);
     }
 
     @Override
-    @Transactional
-    public int deleteAll() {
-        return studentDAO.deleteAll();
+    public void deleteAll() {
+        studentJpaRepository.deleteAll();
     }
 }
